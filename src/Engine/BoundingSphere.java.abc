@@ -1,0 +1,94 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Engine;
+
+/**
+ *
+ * @author Tomus
+ */
+public class BoundingSphere {
+    public double x;
+    public double y;
+    public double z;
+    public double r;
+
+    public boolean Collide2D(BoundingSphere bs)
+    {
+        if (((x - bs.x) * (x - bs.x)) + ((y - bs.y) * (y - bs.y)) - ((bs.r + r)*(bs.r + r)) <= 0)
+            return true;
+        return false;
+    }
+    
+    public boolean Collide(BoundingSphere bs)
+    {
+        if (((x - bs.x) * (x - bs.x)) + ((y - bs.y) * (y - bs.y)) + ((z - bs.z) * (z - bs.z)) - ((bs.r + r)*(bs.r + r)) <= 0)
+            return true;
+        return false;
+    }
+    
+    public BoundingSphere(double x, double y, double z, double r)
+    {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.r = r;
+    }
+    /**
+     * @return the x
+     */
+    public double getX() {
+        return x;
+    }
+
+    /**
+     * @param x the x to set
+     */
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    /**
+     * @return the y
+     */
+    public double getY() {
+        return y;
+    }
+
+    /**
+     * @param y the y to set
+     */
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    /**
+     * @return the z
+     */
+    public double getZ() {
+        return z;
+    }
+
+    /**
+     * @param z the z to set
+     */
+    public void setZ(double z) {
+        this.z = z;
+    }
+
+    /**
+     * @return the r
+     */
+    public double getR() {
+        return r;
+    }
+
+    /**
+     * @param r the r to set
+     */
+    public void setR(double r) {
+        this.r = r;
+    }
+}

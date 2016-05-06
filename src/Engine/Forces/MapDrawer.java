@@ -44,8 +44,8 @@ public class MapDrawer extends JFrame implements IForcesHolder
     
     byte[]LUT = null;
 
-    boolean randomForces = false;
-    boolean moveForces = true;
+    boolean randomForces = true;
+    boolean moveForces = false;
     String saveFileOfGreyScale = null;//"e:\\Publikacje\\incos 2016\\tekst\\INCOS 2\\image.bmp";
     @Override
     public ArrayList<ForceDescription> getForces()

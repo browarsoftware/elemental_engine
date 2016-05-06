@@ -28,7 +28,7 @@ public class Cube implements IRenderableGameObject{
         }
         
         //BoundingSphere boundingSphere = null;
-        BoundingBox boundingBox = null;
+        public BoundingBox boundingBox = null;
         public Object[]ownerId = null;
         
 	public Cube(double x, double y, double z, double width, double length, double height, Color c, Object[]ownerId)

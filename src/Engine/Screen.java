@@ -139,13 +139,17 @@ public class Screen extends JPanel implements KeyListener, MouseListener, MouseM
                 gameObject.add(p);
                 worldMap.updateObjectPosition(-1, -1, (int)(p.GetPosition().getX() / GenerateTerrain.Size), (int)(p.GetPosition().getY()  / GenerateTerrain.Size), p);
                 
-                
+                /*
                 p = game.AddNewPlayer(new double[]{10,8 * GenerateTerrain.Size + 24,8}, new double[]{0,0,0}, -1);
                 p.Name = "Another player 2";
                 gameObject.add(p);
                 worldMap.updateObjectPosition(-1, -1, (int)(p.GetPosition().getX() / GenerateTerrain.Size), (int)(p.GetPosition().getY()  / GenerateTerrain.Size), p);
+                */
                 
-                
+                Cube cc = new Cube(8 * GenerateTerrain.Size,8 * GenerateTerrain.Size, -16, 8*2, 8*2, 8*4, Color.red, null);
+                //Cube cc = new Cube(a * 4, b * 4, c * 4, 2, 2, 2, Color.red, null);
+                gameObject.add(cc);
+                worldMap.updateObjectPosition(-1, -1, (int)(cc.x / GenerateTerrain.Size), (int)(cc.y  / GenerateTerrain.Size), cc);
                 /*
                 Cube cc = new Cube(8 * GenerateTerrain.Size,8 * GenerateTerrain.Size, -16, 8, 8, 8, Color.red, null);
                 //Cube cc = new Cube(a * 4, b * 4, c * 4, 2, 2, 2, Color.red, null);
@@ -213,9 +217,23 @@ public class Screen extends JPanel implements KeyListener, MouseListener, MouseM
                             y = p.MoveDirection.getY() * MovementSpeedTime;
                         }
 
-                        MoveTo2(p.ViewFrom[0] + x, p.ViewFrom[1] + y, p.ViewFrom[2], p, this);
+                        IRenderableGameObject collision = MoveTo2(p.ViewFrom[0] + x, p.ViewFrom[1] + y, p.ViewFrom[2], p, this);
                         worldMap.updateObjectPosition(oldX, oldY, (int)(p.GetPosition().getX() / GenerateTerrain.Size), (int)(p.GetPosition().getY()  / GenerateTerrain.Size), p);
+                        //if (collision != null) collision = MoveTo2(p.ViewFrom[0] + x, p.ViewFrom[1], p.ViewFrom[2], p, this);
+                        //else if (collision != null) collision = MoveTo2(p.ViewFrom[0], p.ViewFrom[1] + y, p.ViewFrom[2], p, this);
+                        if (collision != null && p.jumpProjectile == null && !(collision instanceof Player)) 
+                        {
+                            Vector3D[] v = new Vector3D[1];
+                            v[0] = new Vector3D(0,0,JumpHeight);
+                            p.jumpProjectile = new Projectile(null,Vector3D.ZERO, new Vector3D(p.ViewFrom[0], p.ViewFrom[1], p.ViewFrom[2]), v, true, this, null, 8, new Object[]{p});
+                            //MoveTo2(p.ViewFrom[0], p.ViewFrom[1], p.ViewFrom[2], p, this);
+                            System.out.println("Jump!");
+                            //MoveTo2(p.ViewFrom[0], p.ViewFrom[1], p.ViewFrom[2], p, this);
+                            //worldMap.updateObjectPosition(oldX, oldY, (int)(p.GetPosition().getX() / GenerateTerrain.Size), (int)(p.GetPosition().getY()  / GenerateTerrain.Size), p);
+                        }
+                        
 
+                        
                     }
                 }
             }
@@ -674,7 +692,9 @@ public class Screen extends JPanel implements KeyListener, MouseListener, MouseM
                 //MovementSpeedTime = 0.5;
                 int oldX = (int)(player.ViewFrom[0] / GenerateTerrain.Size);
                 int oldY = (int)(player.ViewFrom[1] / GenerateTerrain.Size);
-                MoveTo2(player.ViewFrom[0] + MoveVector.x * MovementSpeedTime, player.ViewFrom[1] + MoveVector.y * MovementSpeedTime, player.ViewFrom[2], player, this);
+                IRenderableGameObject collision = MoveTo2(player.ViewFrom[0] + MoveVector.x * MovementSpeedTime, player.ViewFrom[1] + MoveVector.y * MovementSpeedTime, player.ViewFrom[2], player, this);
+                //if (collision != null) MoveTo2(player.ViewFrom[0] + MoveVector.x * MovementSpeedTime, player.ViewFrom[1], player.ViewFrom[2], player, this);
+                //else if (collision != null) MoveTo2(player.ViewFrom[0], player.ViewFrom[1] + MoveVector.y * MovementSpeedTime, player.ViewFrom[2], player, this);
                 
                 worldMap.updateObjectPosition(oldX, oldY, (int)(player.GetPosition().getX() / GenerateTerrain.Size), (int)(player.GetPosition().getY()  / GenerateTerrain.Size), player);
                 
@@ -975,7 +995,7 @@ public class Screen extends JPanel implements KeyListener, MouseListener, MouseM
         double stepUpEps = 0.1 * GenerateTerrain.Size;
         double collisionEps = 0;
         
-        void MoveTo2(double x, double y, double z, Player p, Screen screen)
+        IRenderableGameObject MoveTo2(double x, double y, double z, Player p, Screen screen)
 	{
             double[]pp = new double[]{x,y,z};
             
@@ -1046,6 +1066,9 @@ public class Screen extends JPanel implements KeyListener, MouseListener, MouseM
 
             p.boundingBox = new BoundingBox(p.ViewFrom[0] - 2, p.ViewFrom[1] - 2, p.ViewFrom[2] - p.headPosition, 
                         p.ViewFrom[0] + 2, p.ViewFrom[1] + 2, p.ViewFrom[2], true);
+            if (collision != null)
+                System.out.print("__Collision:" + collision.getX() + " " + collision.getY());
+            return collision;
 	}
         
         

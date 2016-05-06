@@ -193,17 +193,30 @@ public class WorldMap implements IForcesHolder{
     public WorldMap()
     {
         Map = new double[mapSize][];
-        ObjectsMap = new ArrayList[mapSize-1][];
+        
         for (int a = 0; a < mapSize; a++)
         {
             Map[a] = new double[mapSize];
         }
+        //z jakiegoś powodu tu było -1, ale już nie wiem dlaczego
+        /*
+        ObjectsMap = new ArrayList[mapSize-1][];
         for (int a = 0; a < mapSize-1; a++)
         {
             ObjectsMap[a] = new ArrayList[mapSize-1];
         }
         for (int x = 0; x < mapSize-1; x++) {
 	            for(int y = 0; y < mapSize-1; y++) {
+                        ObjectsMap[x][y] = new ArrayList<IRenderableGameObject>();
+                    }
+        }*/
+        ObjectsMap = new ArrayList[mapSize][];
+        for (int a = 0; a < mapSize; a++)
+        {
+            ObjectsMap[a] = new ArrayList[mapSize];
+        }
+        for (int x = 0; x < mapSize; x++) {
+	            for(int y = 0; y < mapSize; y++) {
                         ObjectsMap[x][y] = new ArrayList<IRenderableGameObject>();
                     }
         }

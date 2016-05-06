@@ -85,11 +85,64 @@ public class Player implements IRenderableGameObject{
                             goalY = bb;
                         }
                         else
+                        {
+                            Object o = worldMap.ObjectsMap[MapIdX][MapIdY].get(0);
+                            /*if (o instanceof Cube)
+                            {
+                                Cube c = (Cube)o;
+                                double xx = c.width / GenerateTerrain.Size + 1.01;
+                                double yy = c.length / GenerateTerrain.Size + 1.01;
+                                int aaa  = 0;
+                                aaa++;
+                                for (int a1 = - (int)(xx / 2); a1 <= (int)(xx / 2); a1++)
+                                    for (int b1 = - (int)(yy / 2); b1 <= (int)(yy / 2); b1++)
+                                    {
+                                        if (aa + a1 >= 0 && bb + b1 >= 0 && aa + a1 < obstacleMap.length && bb + b1 < obstacleMap[0].length)
+                                        {
+                                            obstacleMap[aa + a1][bb + b1] = 1;
+                                            if (worldMap.ObjectsMap[aa + a1][bb + b1].contains(p))
+                                            {
+                                                obstacleMap[aa + a1][bb + b1] = 0;
+                                                goalX = aa;
+                                                goalY = bb;
+                                            }                                        }
+                                
+                                    }
+                            }*/
+                            
+                            if (o instanceof Cube)
+                            {
+                                Cube c = (Cube)o;
+                                double xx = c.width / GenerateTerrain.Size + .01;
+                                double yy = c.length / GenerateTerrain.Size + .01;
+                                int aaa  = 0;
+                                aaa++;
+                                for (int a1 = 0; a1 <= (int)xx + 0; a1++)
+                                    for (int b1 = 0; b1 <= (int)yy + 0; b1++)
+                                    {
+                                        if (aa + a1 >= 0 && bb + b1 >= 0 && aa + a1 < obstacleMap.length && bb + b1 < obstacleMap[0].length)
+                                        {
+                                            obstacleMap[aa + a1][bb + b1] = 1;
+                                            if (worldMap.ObjectsMap[aa + a1][bb + b1].contains(p))
+                                            {
+                                                obstacleMap[aa + a1][bb + b1] = 0;
+                                                goalX = aa;
+                                                goalY = bb;
+                                            }                                        }
+                                
+                                    }
+                            }
+                            
                             obstacleMap[aa][bb] = 1;
+                        }
                     }
                     else
-                        obstacleMap[aa][bb] = 0;
+                    {
+                        if (obstacleMap[aa][bb] < 1)
+                            obstacleMap[aa][bb] = 0;
+                    }
                 }
+            obstacleMap[halfSize][halfSize] = 0;
             
             AreaMap map = new AreaMap(algorithmSize, algorithmSize, obstacleMap);
             IAStarHeuristic heuristic = new DiagonalHeuristic();

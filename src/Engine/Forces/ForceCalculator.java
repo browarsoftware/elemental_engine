@@ -361,6 +361,7 @@ public class ForceCalculator {
         //gg = GaussianSmooth.smooth_in_round_table(gg, array.length, array[0].length, kernelSize, theta);
         double[][]resultGG = new double[array.length][array[0].length];
         GaussFilter.Calculate(gg, resultGG, 5);
+        //resultGG = gaussian6mads.calculate(gg, 5);
         
         for (int a = 0; a < array.length; a++)
             for (int b = 0; b < array[0].length; b++)

@@ -38,9 +38,6 @@ public class gaussian6mads {
            in_scand = new double[tempy][];
            out_scand = new double[tempy][];
 
-           //tempd=mxCalloc(tempx*tempy,sizeof(double));
-           //tempd1=mxCalloc(tempx*tempy,sizeof(double));
-           //tempd2=mxCalloc(tempx*tempy,sizeof(double));
             for (jj=0;jj<imy;jj++)
             {
                 tempd[jj] = new double[imx];
